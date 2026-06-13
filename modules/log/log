@@ -1,0 +1,26 @@
+#!/bin/bash
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+PREFIX="${DEVKIT_PREFIX:-log}"
+case "$1" in
+  parse|p)    python3 "$REPO_ROOT/core/_log.py" "${@:2}" ;;
+  delete|d)   python3 "$REPO_ROOT/core/_log.py" -d "${@:2}" ;;
+  list|l)     python3 "$REPO_ROOT/core/_log.py" --list ;;
+  keep|k)     python3 "$REPO_ROOT/core/_filter.py" keep "${@:2}" ;;
+  keep-any|ka) python3 "$REPO_ROOT/core/_filter.py" keep-any "${@:2}" ;;
+  remove|r)   python3 "$REPO_ROOT/core/_filter.py" remove "${@:2}" ;;
+  remove-any|ra) python3 "$REPO_ROOT/core/_filter.py" remove-any "${@:2}" ;;
+  range)      python3 "$REPO_ROOT/core/_filter.py" range "${@:2}" ;;
+  *)          echo "Usage: ${PREFIX} <command> [options]"
+              echo ""
+              echo "  ${PREFIX} parse   (p)   <subsystem> <files>   保留匹配行"
+              echo "  ${PREFIX} delete  (d)   <subsystem> <files>   删除匹配行"
+              echo "  ${PREFIX} list    (l)                         列出所有子系统"
+              echo ""
+              echo "  subsystems: activity, crash, boot, wms, ime, input, ..."
+              echo "  ${PREFIX} keep    (k)   <file> <pattern>      保留匹配行 -> *.filter"
+              echo "  ${PREFIX} keep-any(ka)  <file> <patterns>     保留匹配任一模式 -> *.filter"
+              echo "  ${PREFIX} remove  (r)   <file> <pattern>      删除匹配行 -> *.del"
+              echo "  ${PREFIX} remove-any(ra) <file> <patterns>    删除匹配任一模式 -> *.del"
+              echo "  ${PREFIX} range         <file> <start> <end>  提取行范围 -> *.line"
+              exit 1 ;;
+esac

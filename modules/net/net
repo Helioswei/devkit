@@ -1,0 +1,18 @@
+#!/bin/bash
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+PREFIX="${DEVKIT_PREFIX:-net}"
+
+case "$1" in
+  up|upload)     python3 "$REPO_ROOT/core/_transfer.py" upload "${@:2}" ;;
+  down|download) python3 "$REPO_ROOT/core/_transfer.py" download "${@:2}" ;;
+  scan|s)        python3 "$REPO_ROOT/core/_network.py" "${@:2}" ;;
+  *)             echo "Usage: ${PREFIX} <command> [options]"
+                  echo ""
+                  echo "  ${PREFIX} up     (upload)    <local> [remote] [--env path]"
+                  echo "  ${PREFIX} down   (download)  <remote> [local] [--env path]"
+                  echo "  ${PREFIX} scan   (s)         [-t timeout] [-o output]"
+                  echo ""
+                  echo "  配置: 模块目录下 env.py 或 --env 指定路径"
+                  echo "  环境变量: NET_SSH_HOST, NET_SSH_PORT 可覆盖 env.py"
+                  exit 1 ;;
+esac

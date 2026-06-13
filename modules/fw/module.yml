@@ -1,0 +1,5 @@
+name: fw
+description: "AOSP 远程编译 + 镜像部署 + 代码同步"
+install: install.sh
+type: python
+category: workflow

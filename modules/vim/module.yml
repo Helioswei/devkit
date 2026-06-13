@@ -1,0 +1,5 @@
+name: vim
+description: "Vim C++ 开发配置 (插件 + astyle + ctags)"
+install: install.sh
+type: config
+category: editor

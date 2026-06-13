@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# fw — user data (项目配置、归档，全部不提交，但保留空目录)
+modules/fw/projects/*
+modules/fw/archive/*
+!modules/fw/projects/.gitkeep
+!modules/fw/archive/.gitkeep
+
+# fw — local config
+modules/fw/local.py
+
+# fw — sparse image & mount artifacts
+modules/fw/*.sparseimage
+modules/fw/*.sparsebundle
+
+# fw — emulator logs
+modules/fw/*/emulator.log
+
+# log — filter output files
+*.filter
+*.del
+*.line
+
+# net — scan output
+upip
+
+# net — local config
+modules/net/env.py
+
+# video — output files
+output.mp4
+
+# vim — auto-downloaded files
+modules/vim/.vim/autoload/plug.vim
+modules/vim/.vim/plugged/
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Claude Code
+.claude/
+PLAN.md
+CLAUDE.md

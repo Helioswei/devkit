@@ -1,0 +1,5 @@
+name: log
+description: "日志解析 + 文本过滤"
+install: install.sh
+type: python
+category: util

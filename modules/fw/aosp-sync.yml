@@ -1,0 +1,25 @@
+sync:
+  defaults:
+    mode: "two-way-safe"
+    scanMode: "accelerated"
+    ignore:
+      syntax: "mutagen"
+      paths:
+        - ".git"
+        - ".repo"
+        - "out"
+        - "prebuilts"
+        - "kernel"
+        - "bootable"
+        - "trusty"
+        - "hardware"
+        - "external"
+        - "art"
+        - "bionic"
+        - "dalvik"
+        - "developers"
+        - "platform_testing"
+        - "test"
+        - "*.pyc"
+        - "*.o"
+        - "*.ko"

@@ -1,0 +1,5 @@
+name: video
+description: "视频片段合并 (ffmpeg + 片头片尾)"
+install: install.sh
+type: python
+category: media

@@ -1,0 +1,13 @@
+#!/bin/bash
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+PREFIX="${DEVKIT_PREFIX:-video}"
+case "$1" in
+  merge|m)  python3 "$REPO_ROOT/core/_merge.py" "${@:2}" ;;
+  *)        echo "Usage: ${PREFIX} <command> [options]"
+            echo ""
+            echo "  ${PREFIX} merge (m)  <config.txt>  合并视频片段（加片头片尾和文字水印）"
+            echo ""
+            echo "  默认配置文件: config.txt"
+            echo "  直接运行 '${PREFIX}' 即可使用默认配置"
+            exit 1 ;;
+esac

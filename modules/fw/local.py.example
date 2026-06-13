@@ -1,0 +1,60 @@
+"""机器级配置 — 复制为 local.py 后按需修改。
+
+使用说明:
+  1. cp local.py.example local.py
+  2. 如 SDK 不在 ~/Library/Android/sdk，取消注释 ANDROID_SDK_HOME 并设置
+  3. 设置 SDK_IMAGE_TAG（因 Android 版本不同，无法自动派生）
+
+SDK 路径解析优先级（高优先级优先）:
+  1. local.py 中的 ANDROID_SDK_HOME（取消下方注释并设置）
+  2. ANDROID_HOME 环境变量
+  3. ANDROID_SDK_ROOT 环境变量
+  4. ~/Library/Android/sdk（macOS 默认）
+
+如何查找 SDK 路径:
+  - Android Studio 中: Settings > Android SDK > SDK Location
+  - 或在终端运行: echo $ANDROID_HOME
+  - 常见路径:
+      macOS:   ~/Library/Android/sdk
+      Linux:   ~/Android/Sdk
+      Windows: C:\\Users\\<you>\\AppData\\Local\\Android\\Sdk
+
+自动派生路径（无需手动设置）:
+  ADB            = <SDK>/platform-tools/adb
+  EMULATOR       = <SDK>/emulator/emulator
+  SDK_IMAGE_BASE = <SDK>/system-images/<SDK_IMAGE_TAG>
+  AVD_DIR        = ~/.android/avd/<AVD_NAME>.avd
+
+SDK_IMAGE_TAG 格式: <api-level>/<tag>，因 Android 版本不同必须手动设置:
+  Android 36 Car:   android-36/custom
+  Android 34:       android-34/default
+  Android 36 TV:    android-36/android-tv
+"""
+
+import os
+
+# --- SDK 根路径 ---
+# 如 SDK 在非标准位置，取消注释并设置:
+# ANDROID_SDK_HOME = os.path.expanduser("~/Library/Android/sdk")
+
+# --- SDK 镜像标签（必须设置） ---
+# 格式: <api-level>/<tag>
+# SDK_IMAGE_BASE 从 ANDROID_SDK_HOME + SDK_IMAGE_TAG 自动派生，无需手动设完整路径
+SDK_IMAGE_TAG = "android-36/custom"
+
+# --- AVD 配置 ---
+# AVD_DIR 从 AVD_NAME 自动派生，无需手动设置
+AVD_NAME = "Pixel_Tablet"
+
+# --- 代码同步配置（可选功能，fw sync 使用） ---
+# SPARSE_IMAGE_PATH: 稀疏镜像文件路径（macOS 大小写敏感文件系统）
+# SPARSE_IMAGE_SIZE: 稀疏镜像最大容量
+# SYNC_NAME: Mutagen 同步会话名称
+# LOCAL_SYNC_DIR: 稀疏镜像挂载点路径
+SPARSE_IMAGE_PATH = os.path.expanduser("~/AOSP_Dev.sparseimage")
+SPARSE_IMAGE_SIZE = "500g"
+SYNC_NAME = "aosp-sync"
+LOCAL_SYNC_DIR = os.path.expanduser("/Volumes/AOSP_Local")
+
+# --- 本地目录 ---
+DOWNLOADS_DIR = os.path.expanduser("~/Downloads")

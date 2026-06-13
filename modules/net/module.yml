@@ -1,0 +1,5 @@
+name: net
+description: "SCP 文件传输 + 局域网扫描"
+install: install.sh
+type: python
+category: infra

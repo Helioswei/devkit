@@ -1,0 +1,21 @@
+# 配置文件格式：
+#   author=作者名         片头第二行显示，不填则不显示
+#   intro=秒数            片头时长，0或不填则无片头
+#   outro=秒数            片尾时长，0或不填则无片尾
+#   视频行：文件名|标题|开始秒|结束秒
+# 支持 webm、mov 等格式
+# 开始秒和结束秒可选，不填则用完整视频
+# 以 # 开头的行为注释，会被跳过
+
+author=光效demo
+intro=1
+outro=1
+
+lightwhite.mov|环境光|3
+lightself.mov|环境光 + 呼吸动画|5
+lightselfcolor.mov|环境光 + 颜色|2|12
+lightinner.mov|内发光 + 呼吸动画|3
+lightinnercolor.mov|内发光 + 颜色|4.5
+lightedge.webm|高光|1|4
+flowlight.webm|边缘流光
+waterwave.webm|水波纹|0|6

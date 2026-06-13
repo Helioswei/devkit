@@ -1,0 +1,42 @@
+#!/bin/bash
+# devkit — 统一开发者工具包入口
+# 用法: devkit <模块> <子命令> [选项]
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+export DEVKIT_PREFIX="devkit"
+
+# 无参数 → 显示帮助
+if [ $# -eq 0 ] || [ "$1" = "help" ] || [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    echo "devkit — 统一开发者工具包"
+    echo ""
+    echo "用法: devkit <模块> <子命令> [选项]"
+    echo ""
+    echo "可用模块:"
+    for yml in "$REPO_ROOT"/modules/*/module.yml; do
+        [ -f "$yml" ] || continue
+        mod_name="$(grep '^name:' "$yml" | sed 's/name: *//' | tr -d '"')"
+        mod_desc="$(grep '^description:' "$yml" | sed 's/description: *//' | tr -d '"')"
+        mod_type="$(grep '^type:' "$yml" | sed 's/type: *//' | tr -d '"')"
+        if [ "$mod_type" = "python" ]; then
+            echo "  $mod_name  $mod_desc"
+        elif [ "$mod_type" = "config" ]; then
+            echo "  $mod_name  $mod_desc  (安装后自动生效，无子命令)"
+        fi
+    done
+    echo ""
+    echo "示例: devkit fw build -p effect"
+    echo "帮助: devkit <模块>   (如 devkit fw)"
+    exit 0
+fi
+
+# 转发到模块 dispatcher
+MOD="$1"
+MOD_DIR="$REPO_ROOT/modules/$MOD"
+MOD_SCRIPT="$MOD_DIR/$MOD"
+
+if [ ! -f "$MOD_SCRIPT" ]; then
+    echo "Unknown module: $MOD"
+    echo "Run 'devkit help' to see available modules."
+    exit 1
+fi
+
+exec "$MOD_SCRIPT" "${@:2}"

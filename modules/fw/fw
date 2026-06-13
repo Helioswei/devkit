@@ -1,0 +1,35 @@
+#!/bin/bash
+# frameworkflow CLI — 统一入口
+# 用法: devkit fw <子命令> [选项]  或  fw <子命令> [选项]
+REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
+PREFIX="${DEVKIT_PREFIX:-fw}"
+
+case "$1" in
+  build|b)   python3 "$REPO_ROOT/core/build.py" "${@:2}" ;;
+  deploy|d)  python3 "$REPO_ROOT/core/deploy.py" "${@:2}" ;;
+  doctor|dr) python3 "$REPO_ROOT/core/doctor.py" "${@:2}" ;;
+  archive|a) python3 "$REPO_ROOT/core/archive.py" "${@:2}" ;;
+  create|c)  python3 "$REPO_ROOT/core/create.py" "${@:2}" ;;
+  sync|s)   python3 "$REPO_ROOT/core/sync.py" "${@:2}" ;;
+  *)         echo "Usage: ${PREFIX} <build|deploy|doctor|archive|create|sync> [options]"
+             echo ""
+             echo "  ${PREFIX} build   (b)   [-m module] [-p project] [--dry-run]"
+             echo "  ${PREFIX} deploy  (d)   [download|deploy|start|setup|verify|all] [-p project]"
+             echo "  ${PREFIX} doctor  (dr)  [-p project]"
+             echo "  ${PREFIX} archive (a)   [-p project]"
+             echo "  ${PREFIX} create  (c)   <project_name>"
+             echo "  ${PREFIX} sync    (s)   <start|pause|resume|status|stop> [-p project]"
+           echo ""
+           echo "Available projects:"
+           for d in "$REPO_ROOT"/projects/*/env.py "$REPO_ROOT"/archive/*/env.py; do
+             if [ -f "$d" ]; then
+               name=$(basename "$(dirname "$d")")
+               label="project"
+               if [[ "$d" == *"/archive/"* ]]; then label="archive"; fi
+               echo "  $name ($label)"
+             fi
+           done
+           echo ""
+           echo "Or set FW_PROJECT env var to skip -p every time."
+           exit 1 ;;
+esac
